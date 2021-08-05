@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BEM practice</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body>
+    <!-- <div>
+      <div class="btn btn--sucess btn--small">GO TO NEXT APPROVAL</div>
+      <div class="btn btn--warning btn--small">OK</div>
+      <div class="btn btn--danger btn--small">TRY AGAIN</div>
+    </div>
+    <div>
+      <div class="btn btn--sucess">GO TO NEXT APPROVAL</div>
+      <div class="btn btn--warning">OK</div>
+      <div class="btn btn--danger">TRY AGAIN</div>
+    </div>
+    <div>
+      <div class="btn btn--sucess btn--large">GO TO NEXT APPROVAL</div>
+      <div class="btn btn--warning btn--large">OK</div>
+      <div class="btn btn--danger btn--large">TRY AGAIN</div>
+    </div> -->
+    <div>
+      <div onclick="showSuccessToast()" class="btn btn--success">
+        Show success toast
+      </div>
+      <div onclick="showWarningToast()" class="btn btn--warning">
+        Show warning toast
+      </div>
+    </div>
+    <div id="toast"></div>
+    <script>
+      function toast({
+        title = "",
+        message = "",
+        type = "info",
+        duration = 3000,
+      }) {
+        const main = document.getElementById("toast");
+        const icons = {
+          success: "fas fa-check-circle",
+          info: "fas fa-info-circle",
+          warning: "fas fa-exclamation-circle",
+          error: "fas fa-exclamation-circle",
+        };
+        const delay = (duration / 1000).toFixed(2);
+        if (main) {
+          const toast = document.createElement("div");
+          toast.classList.add("toast", "toast--" + type);
+          toast.style.animation = `slideLeftToRight ease 0.5s, fadeOut ease 0.5s ${delay}s forwards`;
+          toast.innerHTML = `
+                  <div class="toast__icon">
+                    <i class="${icons[type]}"></i>
+                  </div>
+                  <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <div class="toast__msg">
+                      ${message}
+                    </div>
+                  </div>
+                  <div class="toast__close">
+                    <i class="fas fa-times"></i>
+                  </div>
+                `;
+          main.append(toast);
+          setTimeout(() => main.removeChild(toast), duration + 1000);
+        }
+      }
+
+      function showSuccessToast() {
+        toast({
+          title: "Thành công",
+          message: "Bạn đã đăng ký tài khoản thành công!",
+          type: "success",
+          duration: 3000,
+        });
+      }
+
+      function showWarningToast() {
+        toast({
+          title: "Thất bại",
+          message: "Có lỗi xảy ra, vui lòng liên hệ quản trị viên!",
+          type: "error",
+          duration: 3000,
+        });
+      }
+    </script>
+  </body>
+</html>
